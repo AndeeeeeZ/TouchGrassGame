@@ -2,29 +2,31 @@ using UnityEngine;
 
 public class Bug : MonoBehaviour
 {
-    [SerializeField] private VoidEvent OnBugReachedPlayer; 
+    [SerializeField] private VoidEvent OnBugReachedPlayer;
     [SerializeField] private int stepSize;
     [SerializeField] private float moveSpeed;
     public Direction direction;
     private Vector3 targetPosition;
-    private bool isAlive; 
+    private bool isAlive;
 
     public void Start()
     {
-        isAlive = true; 
+        isAlive = true;
         targetPosition = transform.position;
     }
 
     public void Update()
     {
-        if (!isAlive) return; 
+        if (!isAlive) return;
         // If reached player then destroy self
-        if (targetPosition == Vector3.zero)
+        if (HasReachedOrPassedCenter())
         {
-            OnBugReachedPlayer.Raise(); 
-            Destroy(gameObject); 
-            isAlive = false;  
+            OnBugReachedPlayer.Raise();
+            Destroy(gameObject);
+            isAlive = false;
+            return;
         }
+        
         float dist = Vector3.Distance(transform.position, targetPosition);
 
         if (dist > 0.001f)
@@ -72,10 +74,30 @@ public class Bug : MonoBehaviour
                 return Vector2.zero;
         }
     }
+    private bool HasReachedOrPassedCenter()
+    {
+        switch (direction)
+        {
+            case Direction.UP:
+                return targetPosition.y <= 0f;
+
+            case Direction.DOWN:
+                return targetPosition.y >= 0f;
+
+            case Direction.LEFT:
+                return targetPosition.x >= 0f;
+
+            case Direction.RIGHT:
+                return targetPosition.x <= 0f;
+
+            default:
+                return false;
+        }
+    }
 
     // If one step away from the player in center
     public bool IsReachableByPlayer()
     {
-        return targetPosition == -1f * (Vector3)GetMoveDirection(); 
+        return targetPosition == -1f * (Vector3)GetMoveDirection();
     }
 }
