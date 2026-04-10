@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BugSpawner : MonoBehaviour
@@ -21,6 +19,20 @@ public class BugSpawner : MonoBehaviour
     public void OnStepForward()
     {
         latestSpawnDistance--; 
+    }
+
+    // Return the top bug's direction
+    // Assuming that bug is already right next to the player
+    public Direction GetCurrentBugDirection()
+    {
+        if (bugs.Count == 0)
+            return Direction.NONE; 
+        
+        Bug bug = bugs.Peek(); 
+        if (!bug.IsReachableByPlayer())
+            return Direction.NONE; 
+        
+        return bug.direction; 
     }
 
     // Spawn n bugs
@@ -50,6 +62,13 @@ public class BugSpawner : MonoBehaviour
         Bug bug = Instantiate(bugPrefab, spawnPosition, Quaternion.identity, bugParent).GetComponent<Bug>();
         bug.Initialize(spawnPosition, direction); 
         bugs.Enqueue(bug); 
+    }
+
+    
+    // Remove the first bug in queue
+    public void OnBugHitPlayer()
+    {
+        bugs.Dequeue(); 
     }
 
     private Vector2 GetDirection(Direction direction)

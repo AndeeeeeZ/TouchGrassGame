@@ -3,5 +3,6 @@ public enum Direction {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    NONE // For when the bug haven't reached the player yet
 }

@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class Bug : MonoBehaviour
@@ -8,23 +7,27 @@ public class Bug : MonoBehaviour
     [SerializeField] private float moveSpeed;
     public Direction direction;
     private Vector3 targetPosition;
+    private bool isAlive; 
 
     public void Start()
     {
+        isAlive = true; 
         targetPosition = transform.position;
     }
 
     public void Update()
     {
+        if (!isAlive) return; 
         // If reached player then destroy self
         if (targetPosition == Vector3.zero)
         {
             OnBugReachedPlayer.Raise(); 
             Destroy(gameObject); 
+            isAlive = false;  
         }
         float dist = Vector3.Distance(transform.position, targetPosition);
 
-        if (dist > 0.05f)
+        if (dist > 0.001f)
         {
             transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
@@ -70,4 +73,9 @@ public class Bug : MonoBehaviour
         }
     }
 
+    // If one step away from the player in center
+    public bool IsReachableByPlayer()
+    {
+        return targetPosition == -1f * (Vector3)GetMoveDirection(); 
+    }
 }
