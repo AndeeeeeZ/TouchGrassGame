@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BugSpawner : MonoBehaviour
@@ -33,6 +34,14 @@ public class BugSpawner : MonoBehaviour
             return Direction.NONE; 
         
         return bug.direction; 
+    }
+
+    public Bug GetCurrentBug()
+    {
+        if (bugs.Count == 0)
+            return null; 
+
+        return bugs.Peek(); 
     }
 
     // Spawn n bugs

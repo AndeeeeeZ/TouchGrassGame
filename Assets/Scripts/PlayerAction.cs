@@ -56,6 +56,8 @@ public class PlayerAction : MonoBehaviour
     private void HitDirection(Direction direction)
     {
         Direction bugDirection = bugSpawner.GetCurrentBugDirection();
+        Bug bug = bugSpawner.GetCurrentBug();
+
 
         if (bugDirection == Direction.NONE)
         {
@@ -64,11 +66,14 @@ public class PlayerAction : MonoBehaviour
         else if (direction == bugDirection)
         {
             OnPlayerHit.Raise();
+            
+            if (bug != null)
+                bug.GetHitByPlayer(); 
         }
         else // missed
         {
             OnPlayerMiss.Raise();
         }
-        OnStepForward.Raise(); 
+        OnStepForward.Raise();
     }
 }
