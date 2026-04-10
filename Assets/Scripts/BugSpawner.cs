@@ -17,7 +17,8 @@ public class BugSpawner : MonoBehaviour
         latestSpawnDistance = 0; 
     }
 
-    public void OnNextStep()
+    // Decrement the latestSpawnDistance since the last bug stepped forward
+    public void OnStepForward()
     {
         latestSpawnDistance--; 
     }
