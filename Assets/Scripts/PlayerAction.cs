@@ -1,5 +1,3 @@
-using System;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,10 +9,12 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private VoidEvent OnStepForward;
 
     private GameInput input;
+    private Animator animator; 
 
     private void Awake()
     {
         input = new GameInput();
+        animator = GetComponent<Animator>(); 
     }
 
     private void OnEnable()
@@ -57,6 +57,8 @@ public class PlayerAction : MonoBehaviour
     {
         Direction bugDirection = bugSpawner.GetCurrentBugDirection();
         Bug bug = bugSpawner.GetCurrentBug();
+        
+        PlayAttackAnimation(direction); 
 
 
         if (bugDirection == Direction.NONE)
@@ -66,7 +68,7 @@ public class PlayerAction : MonoBehaviour
         else if (direction == bugDirection)
         {
             OnPlayerHit.Raise();
-            
+
             if (bug != null)
                 bug.GetHitByPlayer(); 
         }
@@ -75,5 +77,26 @@ public class PlayerAction : MonoBehaviour
             OnPlayerMiss.Raise();
         }
         OnStepForward.Raise();
+    }
+
+    private void PlayAttackAnimation(Direction direction)
+    {
+        string animationName = "Idle"; 
+        switch (direction)
+        {
+            case Direction.UP:
+                animationName = "UpAttack"; 
+                break; 
+            case Direction.DOWN:
+                animationName = "DownAttack"; 
+                break; 
+            case Direction.LEFT: 
+                animationName = "LeftAttack"; 
+                break; 
+            case Direction.RIGHT: 
+                animationName = "RightAttack"; 
+                break; 
+        }
+        animator.Play(animationName); 
     }
 }

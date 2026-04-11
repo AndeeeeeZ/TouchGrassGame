@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BugSpawner : MonoBehaviour
@@ -7,6 +6,7 @@ public class BugSpawner : MonoBehaviour
     [SerializeField] private GameObject bugPrefab;
     [SerializeField] private Transform bugParent; // For hierarchy organization
     [SerializeField] private int baseSpawnDistance; 
+    [SerializeField] private Sprite[] bugSprites;
     private Queue<Bug> bugs; 
     private int latestSpawnDistance; // Record in case multiple bugs are spawned in a single turn
 
@@ -69,7 +69,8 @@ public class BugSpawner : MonoBehaviour
 
         // Create Bug
         Bug bug = Instantiate(bugPrefab, spawnPosition, Quaternion.identity, bugParent).GetComponent<Bug>();
-        bug.Initialize(spawnPosition, direction); 
+        int randomSpriteIndex = (int)Random.Range(0f, bugSprites.Length); 
+        bug.Initialize(spawnPosition, direction, bugSprites[randomSpriteIndex]); 
         bugs.Enqueue(bug); 
     }
 

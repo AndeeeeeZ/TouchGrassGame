@@ -9,12 +9,24 @@ public class Bug : MonoBehaviour
     private ParticleSystem particles;
     private Animator animator;
     private Vector3 targetPosition;
+    private SpriteRenderer sr;
     private bool isAlive;
+
+    public void Initialize(Vector3 startPosition, Direction currDirection, Sprite sprite)
+    {
+        direction = currDirection;
+        targetPosition = startPosition;
+        sr.sprite = sprite; 
+
+        if (direction == Direction.LEFT || direction == Direction.DOWN)
+            sr.flipX = true;
+    }
 
     private void Awake()
     {
         particles = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public void Start()
@@ -71,11 +83,6 @@ public class Bug : MonoBehaviour
         targetPosition *= r;
     }
 
-    public void Initialize(Vector3 startPosition, Direction currDirection)
-    {
-        direction = currDirection;
-        targetPosition = startPosition;
-    }
 
     public void StepForward()
     {
