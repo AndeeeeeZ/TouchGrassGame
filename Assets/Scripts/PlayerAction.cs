@@ -7,6 +7,9 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private VoidEvent OnPlayerHit;
     [SerializeField] private VoidEvent OnPlayerMiss;
     [SerializeField] private VoidEvent OnStepForward;
+    [SerializeField] private RandomPitchAudioClipPlayer clipPlayer; 
+    [SerializeField] private AudioClip[] attackSoundEffects; 
+    [SerializeField] private AudioClip hurtSoundEffect; 
 
     private GameInput input;
     private Animator animator; 
@@ -64,6 +67,7 @@ public class PlayerAction : MonoBehaviour
         if (bugDirection == Direction.NONE)
         {
             // Pass this turn    
+            clipPlayer.PlayClip(GetRandomAttackAudioClip()); 
         }
         else if (direction == bugDirection)
         {
@@ -71,12 +75,21 @@ public class PlayerAction : MonoBehaviour
 
             if (bug != null)
                 bug.GetHitByPlayer(); 
+            
+            clipPlayer.PlayClip(GetRandomAttackAudioClip()); 
         }
         else // missed
         {
             OnPlayerMiss.Raise();
+            clipPlayer.PlayClip(hurtSoundEffect); 
         }
-        OnStepForward.Raise();
+        OnStepForward.Raise(); 
+    }
+
+    private AudioClip GetRandomAttackAudioClip()
+    {
+        int i = Random.Range(0, attackSoundEffects.Length); 
+        return attackSoundEffects[i]; 
     }
 
     private void PlayAttackAnimation(Direction direction)
