@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        running = true; 
+        running = false; 
         currTime = totalTimeInSeconds;
         timerText.color = startColor;
     }
@@ -40,5 +40,10 @@ public class Timer : MonoBehaviour
 
         float ratio = (totalTimeInSeconds - currTime) / totalTimeInSeconds; 
         timerText.color = Color.Lerp(startColor, endColor, ratio); 
+    }
+
+    public void StartGame()
+    {
+        running = true; 
     }
 }
