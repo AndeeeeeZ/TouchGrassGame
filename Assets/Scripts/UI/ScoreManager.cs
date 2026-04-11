@@ -7,12 +7,14 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Vector2[] levels; // (requirement, multi)
     [SerializeField] private Color[] levelColors; 
     [SerializeField] private VoidEvent OnLevelUp; 
+    [SerializeField] private PlayerData data; 
     
     private int hit, miss, combo, maxComboRecord; 
     private float score, currMulti; 
 
     private void Start()
     {
+        data.Reset(); 
         score = 0f; 
         currMulti = 0f; 
         hit = 0; 
@@ -86,5 +88,15 @@ public class ScoreManager : MonoBehaviour
     private void CheckComboRecord()
     {
         maxComboRecord = Mathf.Max(maxComboRecord, combo); 
+    }
+
+    public void RecordData()
+    {
+        CheckComboRecord(); 
+
+        data.totalHit = hit; 
+        data.totalMiss = miss; 
+        data.score = Mathf.FloorToInt(score); 
+        data.longestCombo = maxComboRecord; 
     }
 }

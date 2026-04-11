@@ -22,7 +22,7 @@ public class BugSpawner : MonoBehaviour
 
         // Temporary disable baseSpawnDistance to spawn closer to player
         baseSpawnDistance = 0; 
-        latestSpawnDistance = Mathf.Max(1, baseSpawnDistance - startSpawnAmount);
+        latestSpawnDistance = 0;
         SpawnBug(startSpawnAmount); 
         baseSpawnDistance = temp; 
     }

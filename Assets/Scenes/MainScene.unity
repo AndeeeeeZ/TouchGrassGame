@@ -2950,6 +2950,7 @@ MonoBehaviour:
   levels: []
   levelColors: []
   OnLevelUp: {fileID: 0}
+  data: {fileID: 0}
 --- !u!1 &824946301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4549,6 +4550,7 @@ GameObject:
   - component: {fileID: 1233132183}
   - component: {fileID: 1233132185}
   - component: {fileID: 1233132184}
+  - component: {fileID: 1233132186}
   m_Layer: 5
   m_Name: Scores
   m_TagString: Untagged
@@ -4611,6 +4613,7 @@ MonoBehaviour:
   - {r: 0.8930817, g: 0.19378176, b: 0.24809645, a: 1}
   - {r: 0.4339623, g: 0, b: 0.03482414, a: 1}
   OnLevelUp: {fileID: 11400000, guid: d0578255f75386f4db7213dd3d89ee22, type: 2}
+  data: {fileID: 11400000, guid: 3808a2bf8da41e443b5f1afbc88d668b, type: 2}
 --- !u!114 &1233132184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4658,6 +4661,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1233132183}
         m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
         m_MethodName: OnPlayerHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1233132186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233132181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b7c900c630cc7448672ba81642151b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5ed711c929a93cf45a0d0b2122d66b7e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1233132183}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: RecordData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

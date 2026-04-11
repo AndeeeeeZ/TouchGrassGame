@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
         running = false; 
         currTime = totalTimeInSeconds;
         timerText.color = startColor;
+        UpdateText(); 
     }
 
     private void Update()
